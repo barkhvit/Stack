@@ -10,27 +10,14 @@ namespace Stack
             try
             {
                 Stack S = new Stack("One", "Two", "Three");
+                Stack S2 = new Stack("1", "2", "3");
 
                 while (true)
                 {
                     var input = Console.ReadLine();
                     if (input == "exit") return;
-
-                    Console.WriteLine(S.Top);
-                    Console.WriteLine(S.Size);
-                    S.Pop();
-                    Console.WriteLine(S.Top);
-                    Console.WriteLine(S.Size);
-                    S.Pop();
-                    Console.WriteLine(S.Top);
-                    Console.WriteLine(S.Size);
-                    S.Pop();
-                    Console.WriteLine(S.Top);
-                    Console.WriteLine(S.Size);
-                    S.Pop();
-                    Console.WriteLine(S.Top);
-                    Console.WriteLine(S.Size);
-                    S.Pop();
+                    S.Merge(S2);
+                    S.Print();
                 }
             }
             catch (StackEmptyException e)
