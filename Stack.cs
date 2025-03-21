@@ -54,7 +54,19 @@ namespace Stack
                 Console.WriteLine(parameter.ToString());
         }
 
-        
+        //метод принимает неогр кол-во stack и объединяет
+        public static Stack Concat(params Stack[] stacks)
+        {
+            Stack S = new Stack();
+            foreach (var ss in stacks)
+            {
+                for(int i = ss.Size - 1; i >= 0; i--)
+                {
+                    S.stack.Add(ss.stack[i]);
+                }
+            }
+            return S;
+        }
 
     }
 }
