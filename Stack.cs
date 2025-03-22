@@ -12,7 +12,7 @@ namespace Stack
 {
     public class Stack
     {
-        private StackItem Item = new StackItem();
+        private StackItem Item = new StackItem();//элемент стэка
         private int _size; //кол-во элементов
         private class StackItem//Элемент списка
         {
@@ -46,6 +46,16 @@ namespace Stack
         public string Top {  get { return Item.Value; } } //значение верхнего элемента
         public int Size {  get { return _size; } } //кол-во элементов
 
-
+        public void Pop()
+        {
+            if(_size > 0)
+            {
+                Console.WriteLine(Item.Value);
+                Item = Item.Previous;
+                _size--;
+            }
+            else throw new StackEmptyException();
+            
+        }
     }
 }
