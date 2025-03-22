@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
@@ -11,62 +12,50 @@ namespace Stack
 {
     public class Stack
     {
-        //стэк для хранения
-        public List<string> stack = new List<string>();
-
-        public Stack(params string[] parameters)
+        private StackItem Item = new StackItem();//элемент стэка
+        private int _size; //кол-во элементов
+        private class StackItem//Элемент списка
         {
-            foreach (var parameter in parameters)
+            public string Value { get; }
+            public StackItem Previous { get; }
+            public StackItem()
             {
-                Add(parameter);
+                
+            }
+            public StackItem(string value,StackItem stackItem)
+            {
+                Value = value;
+                Previous = stackItem;
             }
         }
-        public string? Top //возвращает последний элемент списка
-        { get
+
+        public Stack(params string[] item)
+        {
+            foreach(string i in item)
             {
-                if (Size == 0)
-                    return null;
-
-                return stack[stack.Count - 1];
-            } 
-        }
-
-        public int Size//возвращает кол-во элементов в стэке
-        {
-            get { return stack.Count; }
-        }
-        
-        public void Add(string name)//добавляет элемент в стэк
-        {
-            stack.Add(name);
-        }
-
-        public void Pop()//возвращает и удаляет последний элемент
-        {
-            if (String.IsNullOrEmpty(Top))
-                throw new StackEmptyException();
-            Console.WriteLine($"Последний элемент списка: {Top}");
-            stack.Remove(Top);
-        }
-        public void Print()
-        {
-            foreach (var parameter in stack) 
-                Console.WriteLine(parameter.ToString());
-        }
-
-        //метод принимает неогр кол-во stack и объединяет
-        public static Stack Concat(params Stack[] stacks)
-        {
-            Stack S = new Stack();
-            foreach (var ss in stacks)
-            {
-                for(int i = ss.Size - 1; i >= 0; i--)
-                {
-                    S.stack.Add(ss.stack[i]);
-                }
+                Add(i);
             }
-            return S;
         }
 
+        public void Add(string item)
+        {
+            Item = new StackItem(item,Item);
+            _size++;
+        }
+
+        public string Top {  get { return Item.Value; } } //значение верхнего элемента
+        public int Size {  get { return _size; } } //кол-во элементов
+
+        public void Pop()
+        {
+            if(_size > 0)
+            {
+                Console.WriteLine(Item.Value);
+                Item = Item.Previous;
+                _size--;
+            }
+            else throw new StackEmptyException();
+            
+        }
     }
 }
