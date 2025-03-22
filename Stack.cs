@@ -11,62 +11,27 @@ namespace Stack
 {
     public class Stack
     {
-        //стэк для хранения
-        public List<string> stack = new List<string>();
-
-        public Stack(params string[] parameters)
+        private class StackItem//Элемент списка
         {
-            foreach (var parameter in parameters)
+            public string Value { get; }
+            public StackItem Previous { get; }
+            public StackItem(string value,StackItem stackItem)
             {
-                Add(parameter);
+                Value = value;
+                Previous = stackItem;
             }
         }
-        public string? Top //возвращает последний элемент списка
-        { get
-            {
-                if (Size == 0)
-                    return null;
 
-                return stack[stack.Count - 1];
-            } 
+        public Stack(params string[] item)
+        {
+            
         }
 
-        public int Size//возвращает кол-во элементов в стэке
+        public void Add(string item)
         {
-            get { return stack.Count; }
-        }
-        
-        public void Add(string name)//добавляет элемент в стэк
-        {
-            stack.Add(name);
+
         }
 
-        public void Pop()//возвращает и удаляет последний элемент
-        {
-            if (String.IsNullOrEmpty(Top))
-                throw new StackEmptyException();
-            Console.WriteLine($"Последний элемент списка: {Top}");
-            stack.Remove(Top);
-        }
-        public void Print()
-        {
-            foreach (var parameter in stack) 
-                Console.WriteLine(parameter.ToString());
-        }
-
-        //метод принимает неогр кол-во stack и объединяет
-        public static Stack Concat(params Stack[] stacks)
-        {
-            Stack S = new Stack();
-            foreach (var ss in stacks)
-            {
-                for(int i = ss.Size - 1; i >= 0; i--)
-                {
-                    S.stack.Add(ss.stack[i]);
-                }
-            }
-            return S;
-        }
 
     }
 }

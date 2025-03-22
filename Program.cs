@@ -18,8 +18,8 @@ namespace Stack
                 {
                     var input = Console.ReadLine();
                     if (input == "exit") return;
-                    var ss = Stack.Concat(S, S2, S3,S4);
-                    ss.Print();
+                    Stack ss = Stack.Concat(S, S2, S3,S4);
+                    
                 }
             }
             catch (StackEmptyException e)
